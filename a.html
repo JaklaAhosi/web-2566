@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <title>DOM Sound Control</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    #muteButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #muteIcon {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+    }
+
+    #muteButton.muted #muteIcon {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <a-scene>
+    <!-- สร้างเสียง -->
+    <a-sound src="work2/nootnoot.mp3" autoplay="true" loop="true" volume="0.5" id="sound"></a-sound>
+  </a-scene>
+
+  <!-- ปุ่มเสียง (DOM) -->
+  <button id="muteButton" class="">
+    Toggle Mute
+    <img id="muteIcon" src="https://img.icons8.com/material/24/000000/speaker.png" alt="Speaker Icon">
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const muteButton = document.getElementById('muteButton');
+      const sound = document.querySelector('#sound');
+
+      muteButton.addEventListener('click', function () {
+        if (sound.getAttribute('volume') !== 0) {
+          sound.setAttribute('volume', 0);
+          muteButton.textContent = 'Toggle Unmute';
+          muteButton.classList.add('muted');
+        } else {
+          sound.setAttribute('volume', 0.5);
+          muteButton.textContent = 'Toggle Mute';
+          muteButton.classList.remove('muted');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
